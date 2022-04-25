@@ -1,0 +1,58 @@
+<template>
+    <!-- <ltng:require scripts="https://testflex.cybersource.com/cybersource/assets/microform/0.11/flex-microform.min.js" afterScriptsLoaded="{!c.doInit}" /> -->
+    <div class="slds-box">
+    
+      <lightning-input class="slds-form-element__label slds-text-title_bold" type="radio" name="select" value="red" label="Credit Card"></lightning-input>
+      
+      <lightning-card title="">
+        <div class="slds-p-left_medium slds-p-right_medium">
+          <lightning-layout multiple-rows="true" aura:if={ersatz_not_v_hideCreditCardSection}>
+            <lightning-layout-item class="slds-p-around_xx-small" size="12">
+              <lightning-input name="input1" required="true" label="Name on Card" placeholder="Enter a name..." value={cardholderName}></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item class="slds-p-around_xx-small" size="12">
+              <lightning-combobox name="progress" required="true" label="Card Type" value=" " placeholder="Select a card type..." options={cardTypes} onchange={handlecardtypechange} ></lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item class="slds-p-around_xx-small" size="8">
+              <!-- <div class="slds-form-element">                             
+                <div class="slds-form-element__control">-->
+                  <div data-id="number-container" class="form-control" style="height: 32px;"> 
+                    <lightning-input name="input2" required="true" label="Card Number" placeholder="Enter a Card Number" value=""></lightning-input>
+                </div>
+                <!--   </div>
+              </div> -->
+            </lightning-layout-item>
+            <lightning-layout-item class="slds-p-around_xx-small" size="4">
+              <!-- <div class="slds-form-element">                          
+                <div class="slds-form-element__control"> -->
+                  <div data-id="securityCode-container" class="form-control" style="height: 32px;"> 
+                    <lightning-input name="input3" required="true" label="CVV" placeholder="Enter a CVV" value=""></lightning-input>
+                </div>
+                 <!--  </div>
+              </div> -->
+            </lightning-layout-item>
+            <lightning-layout-item class="slds-p-around_xx-small" size="6">
+              <lightning-combobox required="true" label="Expiry Month" value="inProgress" placeholder="MM" options={months} onchange={handleMonthChange}></lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item class="slds-p-around_xx-small" size="6">
+              <lightning-combobox required="true" label="Expiry Year" placeholder="YYYY" options={years} onchange={handleYearChange}></lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item class="slds-p-around_xx-small" size="12">
+              <lightning-combobox label="Billing Address" placeholder="Select an address..." options={addresses} onchange={handleAddressChange}></lightning-combobox>
+            </lightning-layout-item>
+            <!-- <lightning:layoutItem class="slds-card__footer slds-p-vertical_x-small" size="12">
+                          <lightning:button label="Submit Payment" class="slds-button slds-button_brand" disabled="{!v.disableButton}" onclick="{!c.handlePayClick}" />
+                      </lightning:layoutItem> -->
+          </lightning-layout>
+        </div>
+      </lightning-card>
+    </div>
+    <div class="slds-p-left_medium slds-p-right_medium">
+      <lightning-layout multiple-rows="true">
+        <lightning-layout-item class="slds-card__footer slds-p-vertical_x-small" size="12">
+          <!-- <lightning-button label="Submit Payment" class="slds-button slds-button_brand" disabled={disableButton} onclick={handlepayclick}></lightning-button> -->
+          <lightning-button variant="brand" label="Submit Payment" title="Submit Payment" onclick={handlePayClick} class="slds-m-left_x-small"></lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </div>
+  </template>

@@ -1,0 +1,97 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens,lightning:availableForFlowActions" access="global" controller="CreditCardFormController">
+    <!-- <ltng:require scripts="https://testflex.cybersource.com/cybersource/assets/microform/0.11/flex-microform.min.js" afterScriptsLoaded="{!c.doInit}" /> -->
+
+    <ltng:require scripts="{!$Resource.FlexMicroFormMinJS}" afterScriptsLoaded="{!c.doInit}" />
+    
+    <aura:attribute name="microform" type="Object" />
+    <aura:attribute name="token" type="String" />
+    <aura:attribute name="orderId" type="String" />
+    <aura:attribute name="cartId" type="String" />
+    
+    <aura:attribute name="cardholderName" type="String" />
+    <aura:attribute name="selectedCardType" type="String" />
+    <aura:attribute name="selectedMonth" type="String" />
+    <aura:attribute name="selectedYear" type="String" />
+    <aura:attribute name="selectedAddress" type="String" />
+    <aura:attribute name="selectedPaymentMethod" type="String" default="CardPayment" />
+    
+    <aura:attribute name="cardTypes" type="List" />  
+    <aura:attribute name="addresses" type="List" />  
+    <aura:attribute name="months" type="List" />
+    <aura:attribute name="years" type="List" />
+    
+    <aura:attribute name="disableButton" type="Boolean" />
+    <aura:attribute name="hideCreditCardSection" type="Boolean" default="true"/>
+
+    <div class="slds-box">
+        <!-- <input
+            type="radio"
+            id="credit-card"
+            value={!v.hideCreditCardSection}
+            name="credit-card-option"
+            checked={!v.hideCreditCardSection}
+        /> -->
+        <lightning:input class="slds-form-element__label slds-text-title_bold" type="radio" name="select" value="red" label="Credit Card" />
+        <!-- <label
+            class="slds-radio__label slds-p-horizontal_x-small"
+            for="card-payment"
+        >
+            <span class="slds-form-element__label slds-text-title_bold"
+                ></span
+            > 
+        </label> -->
+        <lightning:card title="">
+            <div class="slds-p-left_medium slds-p-right_medium">
+                <lightning:layout multipleRows="true" aura:if="{!!v.hideCreditCardSection}">
+                    <lightning:layoutItem class="slds-p-around_xx-small" size="12">
+                        <lightning:input name="input1" required="true" label="Name on Card" placeholder="Enter a name..." value="{!v.cardholderName}" />
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="slds-p-around_xx-small" size="12">
+                        <lightning:combobox name="progress" required="true" label="Card Type" value="inProgress" placeholder="Select a card type..." options="{!v.cardTypes}" onchange="{!c.handleCardTypeChange}"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="slds-p-around_xx-small" size="8">
+                        <div class="slds-form-element">
+                            <abbr lightning-input_input="" title="required" class="slds-required">*</abbr>
+                            <label class="slds-form-element__label">
+                                Card Number
+                            </label>
+                            <div class="slds-form-element__control">
+                                <div id="number-container" class="form-control slds-input" style="height: 32px;"></div>
+                            </div>
+                        </div> 
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="slds-p-around_xx-small" size="4">
+                        <div class="slds-form-element">
+                            <abbr lightning-input_input="" title="required" class="slds-required">*</abbr>
+                            <label class="slds-form-element__label">
+                                CVV
+                            </label>
+                            <div class="slds-form-element__control">
+                                <div id="securityCode-container" class="form-control slds-input" style="height: 32px;"></div>
+                            </div>
+                        </div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="slds-p-around_xx-small" size="6">
+                        <lightning:combobox required="true" label="Expiry Month" value="inProgress" placeholder="MM" options="{!v.months}" onchange="{!c.handleMonthChange}"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="slds-p-around_xx-small" size="6">
+                        <lightning:combobox required="true" label="Expiry Year" placeholder="YYYY" options="{!v.years}" onchange="{!c.handleYearChange}"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="slds-p-around_xx-small" size="12">
+                        <lightning:combobox label="Billing Address" placeholder="Select an address..." options="{!v.addresses}" onchange="{!c.handleAddressChange}"/>
+                    </lightning:layoutItem>
+                    <!-- <lightning:layoutItem class="slds-card__footer slds-p-vertical_x-small" size="12">
+                        <lightning:button label="Submit Payment" class="slds-button slds-button_brand" disabled="{!v.disableButton}" onclick="{!c.handlePayClick}" />
+                    </lightning:layoutItem> -->
+                </lightning:layout>
+            </div>
+        </lightning:card>
+    </div>
+    <div class="slds-p-left_medium slds-p-right_medium">
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem class="slds-card__footer slds-p-vertical_x-small" size="12">
+                <lightning:button label="Submit Payment" class="slds-button slds-button_brand" disabled="{!v.disableButton}" onclick="{!c.handlePayClick}" />
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+</aura:component>

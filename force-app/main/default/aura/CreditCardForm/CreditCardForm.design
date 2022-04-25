@@ -1,0 +1,6 @@
+<design:component>
+    <design:attribute name="selectedAddress" Label="Selected Address ID"/>
+    <design:attribute name="selectedPaymentMethod" Label="Selected Payment Method"/>
+    <design:attribute name="orderId" Label="Order ID"/>
+    <design:attribute name="cartId" Label="Cart ID"/>
+</design:component>
